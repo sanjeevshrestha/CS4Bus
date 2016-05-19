@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Template for Appointment email</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<h3>You have an appointment</h3>
+	<div>
+		You have an appointment with Dr. <span th:text="${doctor.lastName}"></span>
+		on <span th:text="${appointment.dateTime}"></span>. 
+		<br/>Your appointment
+		details are as follows:
+		<p>
+			<strong>Doctor: </strong> Dr. <span th:text="${doctor.firstName}"></span> <span
+				th:text="${doctor.lastName}"></span>
+		</p>
+		<p>
+			<strong>Date:</strong> <span th:text="${appointment.dateTime}"></span>
+		</p>
+		<p>
+			<strong>Patient Name:</strong> <span th:text="${patient.firstName}"></span> <span th:text="${patient.lastName}"></span>
+		</p>
+
+<p>
+			<strong>Ailment: </strong><span th:text="${appointment.description}"></span>
+		</p>
+		
+	</div>
+	<div>Please arrive 10 minutes before the appointment.
+	</div>
+	<p><br />
+            Thanks for using our service, <br />
+            &emsp; <em><b>Appointment Manager</b></em>
+        </p>
+
+</body>
+</html>

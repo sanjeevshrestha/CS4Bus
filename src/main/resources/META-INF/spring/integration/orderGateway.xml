@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+     xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+ 			http://www.springframework.org/schema/integration/mail
+    		http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+    		http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+ 
+     <gateway id="order" service-interface="edu.mum.integration.OrderGateway"
+     default-request-channel="processOrder"/>
+ 
+	<channel id="processOrder" />
+
+ <!-- Order router declared as an Annotated Message end point -->
+ 	<router input-channel="processOrder" ref="orderRouter" method="processOrder"/>
+
+	<channel id="pickupProcess" />
+
+<recipient-list-router id="customRouter" input-channel="pickupProcess" >
+  <recipient channel="pickupOrder"/>
+  <recipient channel="mailChannel"/>
+</recipient-list-router>
+
+	<channel id="pickupOrder" />
+	<channel id="deliveryOrder" />
+
+    <channel id="warehouseDelivery"/>
+    <channel id="albiaPickup"/>
+
+<!-- bridge between Direct channel &  JMS outbound channel-->
+    <bridge input-channel="pickupOrder" output-channel="albiaPickup" />
+    <bridge input-channel="deliveryOrder" output-channel="warehouseDelivery" />
+ 
+	<jms:outbound-channel-adapter id="jmsoutAlbia" channel="albiaPickup" destination="albiaQueue"/>
+	<jms:outbound-channel-adapter id="jmsoutWarehouse" channel="warehouseDelivery" destination="warehouseQueue"/>
+
+	<!--  -->
+	<chain input-channel="mailChannel">
+ 	    <service-activator ref="emailService"/>
+	    <int-mail:outbound-channel-adapter mail-sender="mailSender" />
+	</chain>
+ </beans:beans>
