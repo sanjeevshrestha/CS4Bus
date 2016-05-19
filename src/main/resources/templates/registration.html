@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Template for Appointment email</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<h3>Your account is created</h3>
+	<div>
+		Welcome to Appointment Manager <span th:text="${user.firstName}"></span>
+	</div>
+	<p><br />
+            Thanks for using our service, <br />
+            &emsp; <em><b>Appointment Manager</b></em>
+        </p>
+
+</body>
+</html>

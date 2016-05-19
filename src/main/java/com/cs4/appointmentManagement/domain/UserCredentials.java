@@ -1,5 +1,6 @@
 package com.cs4.appointmentManagement.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +17,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name="CREDENTIALS")
-public class UserCredentials {
+public class UserCredentials implements Serializable {
 	
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4649089750714233550L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="CREDENTIAL_ID")

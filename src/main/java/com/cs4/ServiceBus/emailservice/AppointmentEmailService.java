@@ -16,7 +16,6 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.cs4.appointmentManagement.domain.Appointment;
-import com.cs4.appointmentManagement.domain.Doctor;
 import com.cs4.appointmentManagement.domain.Patient;
 
 @Service("AppointmentEmailService")
@@ -38,9 +37,7 @@ public class AppointmentEmailService {
 	@ServiceActivator()
 	public MimeMessage handle(Appointment appointment) throws MessagingException {
 
-		Patient patient=new Patient();
-		patient.setEmail("sanjeevsthaus@gmail.com");
-		patient.setFirstName("Sanjeev");
+		Patient patient=appointment.getPatient();
 		
 		String recipientEmail = patient.getEmail();
 		String recipientName = patient.getFirstName();
@@ -51,13 +48,13 @@ public class AppointmentEmailService {
 	public MimeMessage handle(final String recipientName, final String recipientEmail, Appointment appointment,
 			Locale locale) throws MessagingException {
 		
-		Doctor doctor=new Doctor();
-		doctor.setFirstName("Sanjeev");
-		doctor.setLastName("Shrestha");
-		
-		Patient patient=new Patient();
-		patient.setLastName("Shrestha");
-		patient.setFirstName("Rajiv");
+//		Doctor doctor=new Doctor();
+//		doctor.setFirstName("Sanjeev");
+//		doctor.setLastName("Shrestha");
+//		
+//		Patient patient=new Patient();
+//		patient.setLastName("Shrestha");
+//		patient.setFirstName("Rajiv");
 		
 		
 
@@ -69,8 +66,8 @@ public class AppointmentEmailService {
 		thymeContext.setVariable("name", recipientName);
 		thymeContext.setVariable("appointment", appointment);
 		System.out.println(appointment.getDoctor());
-		thymeContext.setVariable("doctor",doctor);
-		thymeContext.setVariable("patient",patient);
+		thymeContext.setVariable("doctor",appointment.getDoctor());
+		thymeContext.setVariable("patient",appointment.getPatient());
 
 
 		// Prepare message using a Spring helper

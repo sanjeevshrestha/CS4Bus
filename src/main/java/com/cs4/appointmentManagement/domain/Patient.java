@@ -6,8 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,6 +18,11 @@ public class Patient extends User {
 //	@Id
 //	@GeneratedValue
 //	private Long Id;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1815053851755273944L;
 
 	@Column(name = "First_Name")
 	private String firstName;
@@ -34,6 +37,7 @@ public class Patient extends User {
 	@OneToMany(mappedBy = "patient")
 	private List<Appointment> appointmentsList;
 	
+
 	public Patient() {}
 	
 	public Patient(User user) {
@@ -46,6 +50,7 @@ public class Patient extends User {
 		super.setUserCredentials(user.getUserCredentials());
 		super.setUserType(user.getUserType());
 	}
+
 
 	public String getFirstName() {
 		return firstName;

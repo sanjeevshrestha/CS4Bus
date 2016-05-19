@@ -18,6 +18,11 @@ public class Doctor extends User {
 //	@GeneratedValue
 //	private Long Id;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8537070330002071928L;
+
 	@Column(name="First_Name")
 	private String firstName;
 	
@@ -32,7 +37,6 @@ public class Doctor extends User {
 	
 	@OneToMany(mappedBy = "doctor")
 	private List<Appointment> appointmentsList;
-	
 	
 	public Doctor() {}
 	
@@ -89,8 +93,7 @@ public class Doctor extends User {
 
 	public String getAsString() {
 		return "Doctor [firstName=" + firstName + ", lastName=" + lastName + ", specialty=" + specialty
+
 				+ ", patients=" + patients + ", appointmentsList=" + appointmentsList + "]";
-	}	
-	
-	
+	}
 }

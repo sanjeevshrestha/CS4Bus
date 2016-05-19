@@ -15,6 +15,7 @@ public class Appointment implements Serializable {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1594161114542673925L;
 
 	@Id
 	@GeneratedValue
@@ -80,7 +81,5 @@ public class Appointment implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Patient patient;
-	
-	
 	
 }
