@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.Router;
 
-import com.cs4.appointmentManagement.domain.Appointment;
+import com.cs4.appointmentManagement.domain.User;
 
 @MessageEndpoint
 public class RegistrationRouter {
@@ -14,7 +14,7 @@ public class RegistrationRouter {
     
  
 	@Router(inputChannel="processRegisration")
-	public String processAppointment(Appointment appointment) {
+	public String processRegisration(User user) {
 	    String destination = "registrationMailer";
 	    
 //  	    switch (appointment.getStatus()) {
