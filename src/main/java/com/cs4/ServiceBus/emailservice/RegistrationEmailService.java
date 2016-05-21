@@ -20,15 +20,33 @@ import com.cs4.appointmentManagement.domain.User;
 public class RegistrationEmailService {
 
 
+	/**
+	 * Email adapter to process Registration notifications. This is integrated in the bus. 
+	 * Uses thymeleaf to parse email template. Uses the template "registration.html".
+	 * Uses Java Mail to send email.
+	 * @author sanjeev
+	 *
+	 */
 
+	/**
+	 * DI JavaMailSender
+	 */
 	@Autowired
 	private JavaMailSender mailSender;
 
+	/**
+	 * DI Spring Template Engine
+	 */
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 
-	/*
+	/**
 	 * Send HTML mail (simple)
+	 * Returns MimeMessage that is used by chain
+	 * 
+	 * @param appointment
+	 * @return MimeMessage
+	 * @throws MessagingException
 	 */
 	@ServiceActivator()
 	public MimeMessage handle(User user) throws MessagingException {
@@ -40,6 +58,16 @@ public class RegistrationEmailService {
 
 	}
 
+	/**
+	 * Sends HTML mail(simple). 
+	 * Returns MimeMessage that is used by chain in the bus
+	 * @param recipientName
+	 * @param recipientEmail
+	 * @param appointment
+	 * @param locale
+	 * @return
+	 * @throws MessagingException
+	 */
 	public MimeMessage handle(final String recipientName, final String recipientEmail, User user,
 			Locale locale) throws MessagingException {
 

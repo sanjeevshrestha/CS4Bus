@@ -7,25 +7,28 @@ import org.springframework.integration.annotation.Router;
 
 import com.cs4.appointmentManagement.domain.Appointment;
 
+/**
+ * @author sanjeev
+ *
+ */
 @MessageEndpoint
 public class AppointmentRouter {
 
+    /**
+     * 
+     */
     final Logger logger = LoggerFactory.getLogger(AppointmentRouter.class);
     
  
+	/**
+	 * @param appointment
+	 * @return
+	 */
 	@Router(inputChannel="processAppointment")
 	public String processAppointment(Appointment appointment) {
 	    String destination = "appointmentMailer";
 	    
-//  	    switch (appointment.getStatus()) {
-//	        case DELIVERY:
-//	        	destination = "deliveryOrder";
-//	            break;
-//            case PICKUP:
-//            	destination = "pickupProcess";
-//                break;	            
-//	    }
-	
+
 		return destination;
 	}
 

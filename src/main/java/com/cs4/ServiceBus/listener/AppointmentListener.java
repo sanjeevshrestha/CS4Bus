@@ -15,12 +15,29 @@ import com.cs4.ServiceBus.integration.AppointmentGateway;
 import com.cs4.appointmentManagement.domain.Appointment;
 
 
+/**
+ * Listener that listens to the JMS channel to receive Appointment data. 
+ * This then pushes the data through the gateway to the bus for other components to process
+ * 
+ * @author sanjeev
+ *
+ */
 public class AppointmentListener implements MessageListener {
 
+	/**
+	 * DI ApplicationContext
+	 */
 	@Autowired
 	private ApplicationContext applicationContext;
+	/**
+	 * 
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(AppointmentListener.class);
 
+	/* (non-Javadoc)
+	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+	 * onMessage method of listener that is registered to listen on ActiveMQ Queue
+	 */
 	public void onMessage(Message message) {
 		System.out.println("Received Appointment Message");
 
@@ -29,6 +46,9 @@ public class AppointmentListener implements MessageListener {
 
 		try {
 
+			/**
+			 * Check if the data is Object
+			 */
 			if (message instanceof ActiveMQTextMessage) {
 
 				ActiveMQTextMessage amqMessage = (ActiveMQTextMessage) message;

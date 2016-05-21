@@ -9,7 +9,8 @@ public interface AppointmentGateway {
 	
 	/**
      * Process a Appointment.
-     */
+	 * @param appointment
+	 */
 	@Gateway(requestChannel="processAppointment")
 	public void process(Appointment appointment);
 	
